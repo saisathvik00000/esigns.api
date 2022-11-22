@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <meta name="description" content="Start exploring the joy of working in a paperless work environment with eSigns the next-generation software that offers free electronic signature for a trial period. "/>
+  <meta  property="og:title" content="eSigns Electronic Signature Software on a free trial"/>
+  <meta property = "og:site_name"  content = "eSigns" />
+  <meta  property= "og:type", content= "website" />
+  <meta name= "robots", content= "index,follow"/>
+  <meta name="keywords" content="
+        e signature software, top electronic signature software, free digital signature software and free e signature application, free electronic signature, free electronic signature software, free esign, online notary software, online signature software, wet signature software, online wet signature software, free wet signature software" />
+        
+  <link rel="icon" href="<%= BASE_URL %>eSignFavicon.png">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+
+  <script src="https://cdn.ckeditor.com/4.14.1/standard-all/ckeditor.js"></script>
+  <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf_viewer.css" rel="stylesheet"/>    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.js"></script>    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf_viewer.js"></script>
+    <script src="//cdn.polyfill.io/v2/polyfill.min.js"></script>    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+
+  <script type="text/javascript">
+    CKEDITOR.config.documentUsers = []
+
+    CKEDITOR.plugins.add('signature', {
+      init: function (editor) {
+        editor.addCommand('signature', new CKEDITOR.dialogCommand('signatureDialog'));
+        editor.ui.addButton('Signature', {
+          label: 'Insert Signature',
+          command: 'signature',
+          toolbar: 'insert',
+          icon: '/assets/img/icons/signature.svg'
+        });
+
+        CKEDITOR.dialog.add('signatureDialog', '/js/dialogs/signature.js');
+
+
+        editor.on('doubleclick', function (evt) {
+          var element = evt.data.element;
+
+          if (!editor.blockless && element.is('span')) {
+
+            let type = element.getAttribute('data-type')
+            if (type == 'signature') {
+              evt.data.dialog = 'signatureDialog'
+            }
+          }
+        });
+
+      }
+    });
+
+
+    CKEDITOR.plugins.add('date', {
+      init: function (editor) {
+        editor.addCommand('date', new CKEDITOR.dialogCommand('dateDialog'));
+        editor.ui.addButton('Date', {
+          label: 'Insert Date',
+          command: 'date',
+          toolbar: 'insert',
+          icon: '/assets/img/icons/calendar.svg'
+        });
+
+        CKEDITOR.dialog.add('dateDialog', '/js/dialogs/date.js');
+
+
+        editor.on('doubleclick', function (evt) {
+          var element = evt.data.element;
+
+          if (!editor.blockless && element.is('input')) {
+
+            let type = element.getAttribute('type')
+            let fieldType = element.getAttribute('field-type')
+            if (type == 'date' && fieldType == 'DATE') {
+              evt.data.dialog = 'dateDialog'
+            }
+          }
+        });
+
+      }
+    });
+
+
+    CKEDITOR.plugins.add('signatureDate', {
+      init: function (editor) {
+        editor.addCommand('signatureDate', new CKEDITOR.dialogCommand('signatureDateDialog'));
+        editor.ui.addButton('SignatureDate', {
+          label: 'Insert Date Signed',
+          command: 'signatureDate',
+          toolbar: 'insert',
+          icon: '/assets/img/icons/date-signed.svg'
+        });
+
+        CKEDITOR.dialog.add('signatureDateDialog', '/js/dialogs/signatureDate.js');
+
+
+        editor.on('doubleclick', function (evt) {
+          var element = evt.data.element;
+
+          if (!editor.blockless && element.is('input')) {
+            let type = element.getAttribute('type')
+
+            let fieldType = element.getAttribute('field-type')
+            if (type == 'date' && fieldType == 'DATE_SIGNED') {
+              evt.data.dialog = 'signatureDateDialog'
+            }
+
+          }
+        });
+
+      }
+    });
+
+    CKEDITOR.editorConfig = function (config) {
+      /*config.removeButtons = 'Styles'; */
+      config.documentUsers = ['A', 'B', 'C']
+    };
+
+
+
+
+
+
+  </script>
+  <div id="app"></div>
+  <!-- <script src="https://www.jsdelivr.com/package/npm/pdfjs-dist"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script> -->
+<!-- <script src="https://cdnjs.com/libraries/pdf.js"></script> -->
+<!-- <script src="https://unpkg.com/pdfjs-dist/"></script> -->
+  <!-- built files will be auto injected -->
+  <div  id="fullScreenLoading" ></div>
+  <!-- Loading&#8230; -->
+</body>
+
+</html>
