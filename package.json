@@ -32,7 +32,7 @@
     "diagram-vue": "^0.3.3",
     "el-table-horizontal-scroll": "^1.0.2",
     "element-ui": "^2.15.6",
-    "filestack-js": "^3.25.0",
+    "filestack-js": "^3.27.0",
     "filestack-vue": "^2.0.0",
     "fuse.js": "^5.2.3",
     "gsap": "^3.8.0",
